@@ -30,9 +30,8 @@ along with Rocur Manager. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 */
 
 
-
-register_activation_hook('RocurManager/DETRM_activation', 'DETRM_activate');
-register_deactivation_hook('RocurManager/DETRM_deactivation', 'DETRM_deactivate');
+register_activation_hook('RocurManager/DETRM_activation', 'detrm_activate');
+register_deactivation_hook('RocurManager/DETRM_deactivation', 'detrm_deactivate');
 
 
 ?>
