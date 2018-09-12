@@ -1,7 +1,5 @@
-<?
-
+<?php
 /*
-
 Plugin Name: Rocur Manager
 Plugin URI:  https://github.com/DennisEckmeier/RocurManager
 Description: Manage a twitter rotating curation account with wordpress!
@@ -26,12 +24,10 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with Rocur Manager. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
-
 */
 
-
-register_activation_hook('RocurManager/DETRM_activation', 'detrm_activate');
-register_deactivation_hook('RocurManager/DETRM_deactivation', 'detrm_deactivate');
+register_activation_hook(RocurManager/DETRM_activation, 'detrm_activate');
+//register_deactivation_hook('RocurManager/DETRM_deactivation', 'detrm_deactivate');
 
 
 ?>

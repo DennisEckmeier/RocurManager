@@ -1,4 +1,4 @@
-<?
+<?php
 
 function detrm_deactivate() {
     // unregister the post type, so the rules are no longer in memory
