@@ -26,8 +26,39 @@ You should have received a copy of the GNU General Public License
 along with Rocur Manager. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 */
 
-register_activation_hook(RocurManager/DETRM_activation, 'detrm_activate');
-//register_deactivation_hook('RocurManager/DETRM_deactivation', 'detrm_deactivate');
+if ( !function_exists( 'add_action' ) ) {
+	echo 'Nothing to see, here. Move along. Move along.';
+	exit;
+}
 
+// ACTIVATION
+include_once dirname( __FILE__ ) . '/DETRM_activation.php';
+register_activation_hook(__FILE__, 'detrm_activate');
+
+// DEACTIVATION
+register_deactivation_hook(plugin_dir_path(__FILE__) .'DETRM_deactivation.php', 'detrm_deactivate');
+
+// ADD CURATOR MANAGEMENT PAGE TO MENU
+function detrm_options_page()
+{
+    /*
+    add_menu_page(
+        string $page_title,
+        string $menu_title,
+        string $capability,
+        string $menu_slug,
+        callable $function = '',
+        string $icon_url = '',
+        int $position = null )
+    */
+
+    add_menu_page(
+        'Manage Curators',
+        'RocurManager',
+        'read',
+        plugin_dir_path(__FILE__) . 'admin/detrm_admin_TopLevel.php'
+    );
+}
+add_action('admin_menu', 'detrm_options_page');
 
 ?>

@@ -13,20 +13,20 @@ function detrm_activate() {
 
     global $wpdb;
     $charset_collate = $wpdb->get_charset_collate();
-
+    // CREATE CURATOR TABLE
     $table_name_curators = $wpdb->prefix . "detrm_curator";
     $sql_curator = "CREATE TABLE $table_name_curators (
             id mediumint(9) NOT NULL AUTO_INCREMENT,
             rocur_id mediumint(9) NOT NULL,
             name tinytext NOT NULL,
             tw_handle tinytext NOT NULL,
-            start_date datetime DEFAULT '0000-00-00 00:00:00' NOT NULL
+            start_date datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
             PRIMARY KEY  (id))
             $charset_collate;";
 
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sql_curator );
-
+    // CREATE ROCUR ACCOUNT TABLE
     $table_name_rocurs = $wpdb->prefix . "detrm_rocur";
     $sql_rocur = "CREATE TABLE $table_name_rocurs (
             id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -42,5 +42,32 @@ function detrm_activate() {
 
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sql_rocur );
+
+    // ADD RocurManager stream_resolve_include_path
+    add_role( 'rocur_manager', 'Rocur Manager', array(
+        'delete_others_posts' => true,
+        'delete_posts' => true,
+        'delete_private_posts' => true,
+        'delete_published_posts' => true,
+        'edit_others_posts' => true,
+        'edit_posts' => true,
+        'edit_private_posts' => true,
+        'edit_published_posts' => true,
+        'manage_links' => true,
+        'moderate_comments' => true,
+        'publish_posts' => true,
+        'read' => true,
+        'unfiltered_html' => true,
+        'upload_files' => true,
+        'delete_posts' => true,
+        'delete_published_posts' => true,
+        'edit_posts' => true,
+        'edit_published_posts' => true,
+        'publish_posts' => true
+    ) );
+    $role = get_role( 'rocur_manager' );
+    $role->add_cap( 'manage_rocur' );
+    $role = get_role( 'administrator' );
+    $role->add_cap( 'manage_rocur' );
 }
 ?>
